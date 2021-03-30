@@ -1,0 +1,16 @@
+name: 'Runtime variables'
+description: 'Load runtime variables from PR body'
+branding:
+  icon: 'box'
+  color: 'blue'
+outputs:
+  cache-url:
+    description: 'Cache url'
+  cache-token:
+    description: 'Cache token'
+  platform-branch:
+    description: 'Platform branch'
+
+runs:
+  using: 'node12'
+  main: 'main.js'
