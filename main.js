@@ -6,8 +6,8 @@ core.setOutput('cache-token', process.env['ACTIONS_RUNTIME_TOKEN']);
 
 const overrideMajorVersion = core.getInput('override-major-version') || undefined;
 
-const { version } = require('./package.json');
+const { version } = require(`${process.env['GITHUB_WORKSPACE']}/package.json`);
 
 const branch = getBranchFromVersion(version, overrideMajorVersion)
 
-core.setOutput('platform-branch', version);
+core.setOutput('platform-branch', branch);
