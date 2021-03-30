@@ -8,8 +8,6 @@ const overrideMajorVersion = core.getInput('override-major-version') || undefine
 
 const { version } = require('./package.json');
 
-console.log(version);
-
 const branch = getBranchFromVersion(version, overrideMajorVersion)
 
 core.setOutput('platform-branch', branch);
