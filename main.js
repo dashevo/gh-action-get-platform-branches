@@ -10,4 +10,4 @@ const { version } = require('./package.json');
 
 const branch = getBranchFromVersion(version, overrideMajorVersion)
 
-core.setOutput('platform-branch', branch);
+core.setOutput('platform-branch', version);
