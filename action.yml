@@ -3,13 +3,22 @@ description: 'Load runtime variables from PR body'
 branding:
   icon: 'box'
   color: 'blue'
+inputs:
+  override-major-version:
+    description: 'Override major version'
+  override-testsuite-branch:
+    description: 'Override platform test suite branch'
+  override-dashmate-branch:
+    description: 'Override dashmate branch'
 outputs:
   cache-url:
     description: 'Cache url'
   cache-token:
     description: 'Cache token'
-  platform-branch:
-    description: 'Platform branch'
+  testsuite-branch:
+    description: 'Platform test suite branch'
+  dashmate-branch:
+    description: 'Dashmate test suite branch'
 
 runs:
   using: 'node12'
