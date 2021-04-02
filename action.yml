@@ -19,6 +19,8 @@ outputs:
     description: 'Platform test suite branch'
   dashmate-branch:
     description: 'Dashmate test suite branch'
+  current-branch:
+    description: 'Current branch name'
 
 runs:
   using: 'node12'

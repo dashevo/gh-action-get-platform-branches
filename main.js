@@ -10,7 +10,14 @@ const overrideDashmateBranch = core.getInput('override-dashmate-branch') || unde
 
 const { version } = require(`${process.env['GITHUB_WORKSPACE']}/package.json`);
 
-const branch = getBranchFromVersion(version, overrideMajorVersion)
+const platformBranch = getBranchFromVersion(version, overrideMajorVersion);
 
-core.setOutput('testsuite-branch', overrideTestSuiteBranch || branch);
-core.setOutput('dashmate-branch', overrideDashmateBranch || branch);
+core.setOutput('testsuite-branch', overrideTestSuiteBranch || platformBranch);
+core.setOutput('dashmate-branch', overrideDashmateBranch || platformBranch);
+
+let currentBranchName = process.env['GITHUB_HEAD_REF'];
+if (currentBranchName === undefined) {
+    currentBranchName = `${process.env['GITHUB_REF']}#refs/tags/`;
+}
+
+core.setOutput('current-branch', currentBranchName);
