@@ -17,7 +17,7 @@ core.setOutput('dashmate-branch', overrideDashmateBranch || platformBranch);
 
 let currentBranchName = process.env['GITHUB_HEAD_REF'];
 if (currentBranchName === undefined) {
-    currentBranchName = `${process.env['GITHUB_REF']}#refs/tags/`;
+  currentBranchName = process.env['GITHUB_REF'].replace(/\/refs\/tags\//, '');
 }
 
 core.setOutput('current-branch', currentBranchName);
