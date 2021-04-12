@@ -24,8 +24,11 @@ const { version } = require(`${process.env['GITHUB_WORKSPACE']}/package.json`);
 
 const platformBranch = getBranchFromVersion(version, overrideMajorVersion);
 
-core.setOutput('testsuite-branch', overrideTestSuiteBranch || platformBranch);
-core.setOutput('dashmate-branch', overrideDashmateBranch || platformBranch);
+const testSuiteBranch = overrideTestSuiteBranch || platformBranch;
+const dashmateBranch = overrideDashmateBranch || platformBranch;
+
+core.setOutput('testsuite-branch', testSuiteBranch);
+core.setOutput('dashmate-branch', dashmateBranch);
 
 let currentBranchName = process.env['GITHUB_HEAD_REF'];
 if (currentBranchName === undefined) {
@@ -35,3 +38,5 @@ if (currentBranchName === undefined) {
 core.setOutput('current-branch', currentBranchName);
 
 console.log(`Current branch is ${currentBranchName}`)
+console.log(`Test Suite branch is ${testSuiteBranch}`)
+console.log(`Dashmate branch is ${dashmateBranch}`)
