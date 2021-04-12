@@ -1,46 +1,66 @@
 const core = require('@actions/core');
 const getBranchFromVersion = require('./src/getBranchFromVersion');
 
+// Set action/cache variables to use in other steps
+
 core.setOutput('cache-url', process.env['ACTIONS_CACHE_URL']);
 core.setOutput('cache-token', process.env['ACTIONS_RUNTIME_TOKEN']);
 
-const overrideMajorVersion = core.getInput('override-major-version') || undefined;
-const overrideTestSuiteBranch = core.getInput('override-testsuite-branch') || undefined;
-const overrideDashmateBranch = core.getInput('override-dashmate-branch') || undefined;
+// Get compatible platform branch name
 
 const { version } = require(`${process.env['GITHUB_WORKSPACE']}/package.json`);
 
-const platformBranch = getBranchFromVersion(version, overrideMajorVersion);
+core.info(`Package version is ${version}`);
+
+const overrideMajorVersion = core.getInput('override-major-version') || undefined;
+
+const platformBranch = getBranchFromVersion(version, {
+  overrideMajorVersion,
+});
+
+if (overrideMajorVersion) {
+  core.info(`Compatible branch name with overridden major version is ${platformBranch}`);
+} else {
+  core.info(`Compatible branch name is ${platformBranch}`);
+}
+
+// Set test suite compatible branch
+
+const overrideTestSuiteBranch = core.getInput('override-testsuite-branch') || undefined;
 
 const testSuiteBranch = overrideTestSuiteBranch || platformBranch;
-const dashmateBranch = overrideDashmateBranch || platformBranch;
 
-core.setOutput('testsuite-branch', testSuiteBranch);
-core.setOutput('dashmate-branch', dashmateBranch);
-
-let currentBranchName = process.env['GITHUB_HEAD_REF'];
-if (currentBranchName === undefined) {
-  currentBranchName = process.env['GITHUB_REF'].replace(/\/refs\/tags\//, '');
-}
-
-core.setOutput('current-branch', currentBranchName);
-
-if (overrideMajorVersion != undefined) {
-  console.log(`Major version overridden with ${overrideMajorVersion}`);
-}
-if (currentBranchName != undefined) {
-  console.log(`Current branch is ${currentBranchName}`);
-}
-console.log(`Package version is ${version}`);
-
-if (overrideTestSuiteBranch != undefined) {
+if (overrideTestSuiteBranch !== undefined) {
   console.log(`Test Suite branch overridden with ${overrideTestSuiteBranch}`);
 } else {
   console.log(`Test Suite branch is ${testSuiteBranch}`);
 }
 
-if (overrideDashmateBranch != undefined) {
+core.setOutput('testsuite-branch', testSuiteBranch);
+
+// Set dashmate compatible branch
+
+const overrideDashmateBranch = core.getInput('override-dashmate-branch') || undefined;
+
+const dashmateBranch = overrideDashmateBranch || platformBranch;
+
+if (overrideDashmateBranch !== undefined) {
   console.log(`Dashmate branch overridden with ${overrideDashmateBranch}`);
 } else {
   console.log(`Dashmate branch is ${dashmateBranch}`);
 }
+
+core.setOutput('dashmate-branch', dashmateBranch);
+
+// Set current branch/tag name
+
+let currentBranchName = process.env['GITHUB_HEAD_REF'];
+if (currentBranchName !== undefined) {
+  currentBranchName = process.env['GITHUB_REF'].replace(/\/refs\/tags\//, '');
+  
+  core.info(`Current tag name is ${currentBranchName}`);
+} else {
+  core.info(`Current branch name is ${currentBranchName}`);
+}
+
+core.setOutput('current-branch', currentBranchName);
