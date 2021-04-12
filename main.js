@@ -8,18 +8,6 @@ const overrideMajorVersion = core.getInput('override-major-version') || undefine
 const overrideTestSuiteBranch = core.getInput('override-testsuite-branch') || undefined;
 const overrideDashmateBranch = core.getInput('override-dashmate-branch') || undefined;
 
-if (overrideMajorVersion != undefined) {
-  console.log(`Major version overridden with ${overrideMajorVersion}`)
-}
-
-if (overrideTestSuiteBranch != undefined) {
-  console.log(`Test Suite branch overridden with ${overrideTestSuiteBranch}`)
-}
-
-if (overrideDashmateBranch != undefined) {
-  console.log(`Dashmate branch overridden with ${overrideDashmateBranch}`)
-}
-
 const { version } = require(`${process.env['GITHUB_WORKSPACE']}/package.json`);
 
 const platformBranch = getBranchFromVersion(version, overrideMajorVersion);
@@ -37,6 +25,20 @@ if (currentBranchName === undefined) {
 
 core.setOutput('current-branch', currentBranchName);
 
-console.log(`Current branch is ${currentBranchName}`)
+if (overrideMajorVersion != undefined) {
+  console.log(`Major version overridden with ${overrideMajorVersion}`)
+}
+if (currentBranchName != undefined) {
+  console.log(`Current branch is ${currentBranchName}`);
+}
+console.log(`Package version is ${version}`)
+
+if (overrideTestSuiteBranch != undefined) {
+  console.log(`Test Suite branch overridden with ${overrideTestSuiteBranch}`)
+}
 console.log(`Test Suite branch is ${testSuiteBranch}`)
+
+if (overrideDashmateBranch != undefined) {
+  console.log(`Dashmate branch overridden with ${overrideDashmateBranch}`)
+}
 console.log(`Dashmate branch is ${dashmateBranch}`)
