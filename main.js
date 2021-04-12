@@ -26,19 +26,21 @@ if (currentBranchName === undefined) {
 core.setOutput('current-branch', currentBranchName);
 
 if (overrideMajorVersion != undefined) {
-  console.log(`Major version overridden with ${overrideMajorVersion}`)
+  console.log(`Major version overridden with ${overrideMajorVersion}`);
 }
 if (currentBranchName != undefined) {
   console.log(`Current branch is ${currentBranchName}`);
 }
-console.log(`Package version is ${version}`)
+console.log(`Package version is ${version}`);
 
 if (overrideTestSuiteBranch != undefined) {
-  console.log(`Test Suite branch overridden with ${overrideTestSuiteBranch}`)
+  console.log(`Test Suite branch overridden with ${overrideTestSuiteBranch}`);
+} else {
+  console.log(`Test Suite branch is ${testSuiteBranch}`);
 }
-console.log(`Test Suite branch is ${testSuiteBranch}`)
 
 if (overrideDashmateBranch != undefined) {
-  console.log(`Dashmate branch overridden with ${overrideDashmateBranch}`)
+  console.log(`Dashmate branch overridden with ${overrideDashmateBranch}`);
+} else {
+  console.log(`Dashmate branch is ${dashmateBranch}`);
 }
-console.log(`Dashmate branch is ${dashmateBranch}`)
