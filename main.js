@@ -3,12 +3,12 @@ const getBranchFromVersion = require('./src/getBranchFromVersion');
 
 // Set action/cache variables to use in other steps
 
-core.setOutput('cache-url', process.env['ACTIONS_CACHE_URL']);
-core.setOutput('cache-token', process.env['ACTIONS_RUNTIME_TOKEN']);
+core.setOutput('cache-url', process.env.ACTIONS_CACHE_URL);
+core.setOutput('cache-token', process.env.ACTIONS_RUNTIME_TOKEN);
 
 // Get compatible platform branch name
 
-const { version } = require(`${process.env['GITHUB_WORKSPACE']}/package.json`);
+const { version } = require(`${process.env.GITHUB_WORKSPACE}/package.json`);
 
 core.info(`Package version is ${version}`);
 
@@ -53,13 +53,15 @@ if (overrideDashmateBranch !== undefined) {
 core.setOutput('dashmate-branch', dashmateBranch);
 
 // Set current branch/tag name
-let currentBranchName = process.env['GITHUB_HEAD_REF'];
-if (currentBranchName === '') {
-  currentBranchName = process.env['GITHUB_REF'].replace(/\/refs\/tags\//, '');
-  
-  core.info(`Current tag name is ${currentBranchName}`);
-} else {
+let currentBranchName;
+if (process.env.GITHUB_EVENT_NAME === 'pull_request') {
+  currentBranchName = process.env.GITHUB_HEAD_REF;
+
   core.info(`Current branch name is ${currentBranchName}`);
+} else {
+  currentBranchName = process.env.GITHUB_REF.substring('refs/tags/'.length);
+
+  core.info(`Current tag name is ${currentBranchName}`);
 }
 
 core.setOutput('current-branch', currentBranchName);
