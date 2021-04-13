@@ -53,9 +53,8 @@ if (overrideDashmateBranch !== undefined) {
 core.setOutput('dashmate-branch', dashmateBranch);
 
 // Set current branch/tag name
-
 let currentBranchName = process.env['GITHUB_HEAD_REF'];
-if (currentBranchName !== undefined) {
+if (currentBranchName !== '') {
   currentBranchName = process.env['GITHUB_REF'].replace(/\/refs\/tags\//, '');
   
   core.info(`Current tag name is ${currentBranchName}`);
