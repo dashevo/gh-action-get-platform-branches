@@ -53,6 +53,7 @@ if (overrideDashmateBranch !== undefined) {
 core.setOutput('dashmate-branch', dashmateBranch);
 
 // Set current branch/tag name
+
 let currentBranchName;
 if (process.env.GITHUB_EVENT_NAME === 'pull_request') {
   currentBranchName = process.env.GITHUB_HEAD_REF;
