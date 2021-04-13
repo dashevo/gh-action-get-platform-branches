@@ -31,9 +31,9 @@ const overrideTestSuiteBranch = core.getInput('override-testsuite-branch') || un
 const testSuiteBranch = overrideTestSuiteBranch || platformBranch;
 
 if (overrideTestSuiteBranch !== undefined) {
-  console.log(`Test Suite branch overridden with ${overrideTestSuiteBranch}`);
+  core.info(`Test Suite branch overridden with ${overrideTestSuiteBranch}`);
 } else {
-  console.log(`Test Suite branch is ${testSuiteBranch}`);
+  core.info(`Test Suite branch is ${testSuiteBranch}`);
 }
 
 core.setOutput('testsuite-branch', testSuiteBranch);
@@ -45,9 +45,9 @@ const overrideDashmateBranch = core.getInput('override-dashmate-branch') || unde
 const dashmateBranch = overrideDashmateBranch || platformBranch;
 
 if (overrideDashmateBranch !== undefined) {
-  console.log(`Dashmate branch overridden with ${overrideDashmateBranch}`);
+  core.info(`Dashmate branch overridden with ${overrideDashmateBranch}`);
 } else {
-  console.log(`Dashmate branch is ${dashmateBranch}`);
+  core.info(`Dashmate branch is ${dashmateBranch}`);
 }
 
 core.setOutput('dashmate-branch', dashmateBranch);
