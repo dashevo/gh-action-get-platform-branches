@@ -11,10 +11,6 @@ inputs:
   override-dashmate-branch:
     description: 'Override dashmate branch'
 outputs:
-  cache-url:
-    description: 'Cache url'
-  cache-token:
-    description: 'Cache token'
   testsuite-branch:
     description: 'Platform test suite branch'
   dashmate-branch:
