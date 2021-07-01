@@ -1,11 +1,6 @@
 const core = require('@actions/core');
 const getBranchFromVersion = require('./src/getBranchFromVersion');
 
-// Set action/cache variables to use in other steps
-
-core.setOutput('cache-url', process.env.ACTIONS_CACHE_URL);
-core.setOutput('cache-token', process.env.ACTIONS_RUNTIME_TOKEN);
-
 // Get compatible platform branch name
 
 const { version } = require(`${process.env.GITHUB_WORKSPACE}/package.json`);
