@@ -57,12 +57,14 @@ core.setOutput('dashmate-branch', dashmateBranch);
 let currentBranchName;
 if (process.env.GITHUB_EVENT_NAME === 'pull_request') {
   currentBranchName = process.env.GITHUB_HEAD_REF;
-
   core.info(`Current branch name is ${currentBranchName}`);
 } else {
-  currentBranchName = process.env.GITHUB_REF.substring('refs/tags/'.length);
-
-  core.info(`Current tag name is ${currentBranchName}`);
+  let refType = 'tags';
+  if (process.env.GITHUB_EVENT_NAME === 'workflow_dispatch') {
+     refType = 'heads';
+  }
+  currentBranchName = process.env.GITHUB_REF.substring(`refs/${refType}/`.length);
+  core.info(`Current branch name is ${currentBranchName}`);
 }
 
 core.setOutput('current-branch', currentBranchName);
