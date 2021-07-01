@@ -59,8 +59,9 @@ if (process.env.GITHUB_EVENT_NAME === 'pull_request') {
   currentBranchName = process.env.GITHUB_HEAD_REF;
 
   core.info(`Current branch name is ${currentBranchName}`);
-} else {
+} else if (process.env.GITHUB_EVENT_NAME === 'workflow_dispatch') {
   core.info(`Current ref is ${ process.env.GITHUB_REF }`);
+  core.info(`Current head ref is ${ process.env.GITHUB_HEAD_REF }`);
   core.info(`GitHub event name is ${ process.env.GITHUB_EVENT_NAME }`)
   currentBranchName = process.env.GITHUB_REF.substring('refs/tags/'.length);
 
