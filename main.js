@@ -55,7 +55,7 @@ if (process.env.GITHUB_EVENT_NAME === 'pull_request') {
   core.info(`Current branch name is ${currentBranchName}`);
 } else {
   let refType = 'tags';
-  if (process.env.GITHUB_EVENT_NAME === 'workflow_dispatch') {
+  if (process.env.GITHUB_EVENT_NAME === 'workflow_dispatch' || process.env.GITHUB_EVENT_NAME === 'schedule') {
      refType = 'heads';
   }
   currentBranchName = process.env.GITHUB_REF.substring(`refs/${refType}/`.length);
